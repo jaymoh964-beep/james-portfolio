@@ -63,16 +63,46 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
 html { scroll-behavior: smooth; overflow-x: hidden }
+
+/* ── NY SKYLINE FIXED BACKGROUND ── */
 body {
   font-family: var(--font-b);
-  background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   letter-spacing: -.01em;
+  background-color: var(--bg);
 }
 
-/* Subtle grain overlay */
+/* Layer 1 — NY skyline photo, fixed */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1546436836-07a91091f160?w=1920&q=80&fit=crop');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  filter: brightness(0.22) saturate(0.7) hue-rotate(220deg);
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Layer 2 — deep colour tint so dark bg colours blend into photo */
+#bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5,5,16,.55) 0%,
+    rgba(5,5,16,.35) 40%,
+    rgba(5,5,16,.65) 100%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Layer 3 — grain texture */
 body::after {
   content: '';
   position: fixed;
@@ -80,8 +110,14 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 9999;
-  opacity: .28;
+  opacity: .22;
 }
+
+/* Make all section backgrounds semi-transparent so skyline shows through */
+#about, #projects, #blog, #testimonials { background: rgba(8,8,24,.72) !important }
+#skills, #experience, #services, #contact { background: rgba(5,5,16,.68) !important }
+footer { background: rgba(8,8,24,.88) !important }
+nav { background: rgba(5,5,16,.82) !important }
 
 /* ── LOADING SCREEN ── */
 #loader { position: fixed; inset: 0; background: var(--bg); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; transition: opacity .7s var(--ease), transform .7s var(--ease) }
@@ -936,6 +972,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 7
 </style>
 </head>
 <body>
+<div id="bg-overlay"></div>
 
 <!-- LOADING SCREEN -->
 <div id="loader">
@@ -1149,7 +1186,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 7
     </div>
     <div class="pgrid">
       <div class="pc reveal" data-cats="ai,web"><div class="pc-img"><img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=75&fit=crop" alt="ShioPesa" loading="lazy"><div class="pc-img-overlay"></div><div class="pc-emoji">🏦</div></div><div class="pc-body"><div class="pc-title">ShioPesa</div><div class="pc-desc">AI-powered banking app with M-Pesa integration, bank transfers, biometric KYC and fraud detection.</div><div class="pc-tags"><span class="pc-tag">AI</span><span class="pc-tag">React</span><span class="pc-tag">Node.js</span><span class="pc-tag">M-Pesa</span></div><div class="pc-btns-split">
-  <span class="pc-coming">🔒 Live Demo — Coming Soon</span>
+  <a href="https://shiopesa-frontend.vercel.app/" target="_blank" class="pc-demo">Live Demo ↗</a>
   <div class="pc-code-row">
     <a href="https://github.com/jaymoh964-beep/shiopesa-frontend" target="_blank" class="pc-code-fe">⚛️ Frontend</a>
     <a href="https://github.com/jaymoh964-beep/shiopesa-backend" target="_blank" class="pc-code-be">⚙️ Backend</a>
@@ -1158,7 +1195,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 7
       <div class="pc reveal d1" data-cats="automation,ai"><div class="pc-img"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=75&fit=crop" alt="AutoLeads" loading="lazy"><div class="pc-img-overlay"></div><div class="pc-emoji">🎯</div></div><div class="pc-body"><div class="pc-title">AutoLeads</div><div class="pc-desc">Automated lead generation using n8n + GPT-4 + CRM. Generates 200+ qualified leads per week.</div><div class="pc-tags"><span class="pc-tag">n8n</span><span class="pc-tag">GPT-4</span><span class="pc-tag">CRM</span><span class="pc-tag">Automation</span></div><div class="pc-btns"><a href="#" class="pc-btn pc-demo" style="opacity:.45;cursor:default;pointer-events:none">🔒 Coming Soon</a><a href="https://github.com/jaymoh964-beep" target="_blank" class="pc-btn pc-code">GitHub ↗</a></div></div></div>
       <div class="pc reveal d2" data-cats="marketing,web"><div class="pc-img"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=75&fit=crop" alt="Growth Pilot" loading="lazy"><div class="pc-img-overlay"></div><div class="pc-emoji">📊</div></div><div class="pc-body"><div class="pc-title">Growth Pilot</div><div class="pc-desc">Marketing command center with real-time ad analytics, ROAS tracking and AI budget recommendations.</div><div class="pc-tags"><span class="pc-tag">Marketing</span><span class="pc-tag">React</span><span class="pc-tag">Meta API</span></div>
 <div class="pc-btns-split">
-  <span class="pc-coming">🔒 Live Demo — Coming Soon</span>
+  <a href="https://growth-pilot-frontend-n13n.vercel.app/" target="_blank" class="pc-demo">Live Demo ↗</a>
   <div class="pc-code-row">
     <a href="https://github.com/jaymoh964-beep/Growth-Pilot-frontend" target="_blank" class="pc-code-fe">⚛️ Frontend</a>
     <a href="https://github.com/jaymoh964-beep/GrowthPilot" target="_blank" class="pc-code-be">⚙️ Backend</a>
@@ -1312,7 +1349,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 7
     </div>
     <div class="foot-bottom">
       <span class="fcopy">© 2025 James Shio. All rights reserved.</span>
-      <span class="fbuilt">Built with ☕.</span>
+      <span class="fbuilt">Built with ☕ and <a href="https://claude.ai" target="_blank">Claude AI</a></span>
     </div>
   </div>
 </footer>
